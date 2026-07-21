@@ -1,0 +1,20 @@
+[project]
+name = "hybrid-rag-retrieval-engine"
+version = "0.1.0"
+description = "Hybrid dense + lexical retrieval with rank-based fusion, reranking, metadata filtering, and a FastAPI service."
+requires-python = ">=3.12"
+dependencies = [
+    "faiss-cpu>=1.8.0",
+    "fastapi>=0.115.0",
+    "numpy>=1.26.0",
+    "pyyaml>=6.0",
+    "rank-bm25>=0.2.2",
+    "sentence-transformers>=3.0.0",
+    "uvicorn>=0.30.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=8.0.0",
+]
