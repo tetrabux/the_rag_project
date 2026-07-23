@@ -5,3 +5,7 @@ __pycache__/
 rag-module1-spec/
 .claude/
 SPEC.md
+.env
+Module2-specs.md
+rag/eval/.cache/
+rag/eval/results.json

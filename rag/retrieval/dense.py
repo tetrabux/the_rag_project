@@ -24,6 +24,7 @@ def search(model, query, chunks, embeddings, n, allowed_indices=None):
 
     indexed_scores = list(enumerate(scores))
 
+    # filter before ranking, so a source-scoped search still returns the top n within that scope
     if allowed_indices is not None:
         indexed_scores = [
             (i, score) for i, score in indexed_scores

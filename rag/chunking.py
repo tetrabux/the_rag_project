@@ -24,6 +24,7 @@ def chunk_section(section):
 
     for sentence in sentences:
         if current_len + len(sentence) + 1 > CHUNK_BUDGET and current:
+            # prefix with the heading breadcrumb so the embedding model gets section context, not just bare sentences
             chunks.append(
                 Chunk(" > ".join(section.breadcrumb) + " : " + " ".join(current), section.breadcrumb, section.source, section.file_path)
             )

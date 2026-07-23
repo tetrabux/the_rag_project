@@ -4,6 +4,7 @@ from rag.parsing import parse_docs, DOCS_DIR
 import re
 
 def tokenize(text):
+    # underscore stays part of the token so identifiers like MAX_NETWORK_RETRY_BACKOFF match as one unit
     return re.findall(r"[a-z0-9_]+", text.lower())
 
 
@@ -18,6 +19,7 @@ def search(query, chunks, bm25, n, allowed_indices=None):
 
     indexed_scores = list(enumerate(scores))
 
+    # same as dense search: filter before ranking, not after
     if allowed_indices is not None:
         indexed_scores = [
             (i, score) for i, score in indexed_scores

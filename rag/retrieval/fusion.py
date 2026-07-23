@@ -20,6 +20,7 @@ def min_max_normalize(results):
 
 
 def fuse_min_max(dense_results, lexical_results):
+    # kept as the "naive" baseline — see README for why this is unstable across candidate depths
     # Normalize both lists
     dense_norm = min_max_normalize(dense_results)
     lexical_norm = min_max_normalize(lexical_results)
@@ -44,6 +45,7 @@ def fuse_min_max(dense_results, lexical_results):
 
 
 def fuse_rank_based(dense_results, lexical_results, k=60, dense_weight=1.0, lexical_weight=1.0):
+    # k=60 is the standard RRF constant — dampens how much rank 1 dominates the fused score
     scores_map = {}
 
     for rank, (chunk, _) in enumerate(dense_results, start=1):

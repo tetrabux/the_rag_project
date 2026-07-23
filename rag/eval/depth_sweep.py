@@ -3,7 +3,7 @@ from rag.retrieval.lexical import build_index
 from rag.retrieval.rerank import load_reranker
 from rag.eval.harness import build_corpus, evaluate
 
-DEPTHS = [10, 25, 50, 100, 200]
+DEPTHS = [10, 25, 50, 100, 200]  # widen candidate pool to see where reranker depth stops helping (see README)
 
 
 def sweep():

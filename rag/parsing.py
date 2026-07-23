@@ -30,6 +30,7 @@ def parse_file(file_path):
 
             level = len(line) - len(line.lstrip("#"))
             title = line.strip("#").strip()
+            # close out any open headings at this level or deeper before pushing the new one
             while stack and stack[-1][0] >= level:
                 stack.pop()
             stack.append((level, title))

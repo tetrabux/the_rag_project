@@ -1,0 +1,92 @@
+{
+  "What happens the first time I start the service?||hybrid_rerank": {
+    "human_faithful": false,
+    "human_relevance": "fully_addresses",
+    "judge_faithfulness": 1.0,
+    "judge_relevance": "fully_addresses"
+  },
+  "What is MAX_INGEST_IDLE_TIMEOUT?||dense": {
+    "human_faithful": true,
+    "human_relevance": "fully_addresses",
+    "judge_faithfulness": 1.0,
+    "judge_relevance": "fully_addresses"
+  },
+  "installation||hybrid_rerank": {
+    "human_faithful": true,
+    "human_relevance": "fully_addresses",
+    "judge_faithfulness": 1.0,
+    "judge_relevance": "fully_addresses"
+  },
+  "What is the architecture and consistency model of the system?||hybrid": {
+    "human_faithful": true,
+    "human_relevance": "fully_addresses",
+    "judge_faithfulness": 1.0,
+    "judge_relevance": "fully_addresses"
+  },
+  "For the auth-subsystem error whose description mentions a signing key not found in the active keyring, what config key controls it and what's the default?||hybrid_rerank": {
+    "human_faithful": true,
+    "human_relevance": "does_not_address",
+    "judge_faithfulness": 1.0,
+    "judge_relevance": "does_not_address"
+  },
+  "MAX_AUTH_BATCH_SIZE||hybrid_rerank": {
+    "human_faithful": true,
+    "human_relevance": "fully_addresses",
+    "judge_faithfulness": 1.0,
+    "judge_relevance": "fully_addresses"
+  },
+  "MAX_NETWORK_RETRY_BACKOFF||hybrid_rerank": {
+    "human_faithful": true,
+    "human_relevance": "fully_addresses",
+    "judge_faithfulness": 1.0,
+    "judge_relevance": "fully_addresses"
+  },
+  "MAX_AUTH_BATCH_SIZE||dense": {
+    "human_faithful": true,
+    "human_relevance": "fully_addresses",
+    "judge_faithfulness": 1.0,
+    "judge_relevance": "fully_addresses"
+  },
+  "How do I instal the sofware?||hybrid": {
+    "human_faithful": true,
+    "human_relevance": "fully_addresses",
+    "judge_faithfulness": 1.0,
+    "judge_relevance": "fully_addresses"
+  },
+  "What's the safe way to handle two processes updating the same piece of data at the same time, and why is blindly retrying a bad idea?||hybrid": {
+    "human_faithful": false,
+    "human_relevance": "partially_addresses",
+    "judge_faithfulness": 1.0,
+    "judge_relevance": "fully_addresses"
+  },
+  "installation||hybrid": {
+    "human_faithful": true,
+    "human_relevance": "fully_addresses",
+    "judge_faithfulness": 1.0,
+    "judge_relevance": "fully_addresses"
+  },
+  "What is MAX_INGEST_IDLE_TIMEOUT?||hybrid_rerank": {
+    "human_faithful": true,
+    "human_relevance": "fully_addresses",
+    "judge_faithfulness": 1.0,
+    "judge_relevance": "fully_addresses"
+  },
+  "How does authentication get configured?||hybrid": {
+    "human_faithful": true,
+    "human_relevance": "partially_addresses",
+    "judge_faithfulness": 1.0,
+    "judge_relevance": "fully_addresses"
+  },
+  "What should I know about scaling and monitoring the worker tier?||dense": {
+    "human_faithful": true,
+    "human_relevance": "partially_addresses",
+    "judge_faithfulness": 1.0,
+    "judge_relevance": "fully_addresses"
+  },
+  "What does MAX_AUTH_IDLE_TIMEOUT control?||hybrid_rerank": {
+    "human_faithful": true,
+    "human_relevance": "fully_addresses",
+    "judge_faithfulness": 1.0,
+    "judge_relevance": "fully_addresses"
+  }
+}

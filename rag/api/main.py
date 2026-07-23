@@ -13,7 +13,7 @@ from rag.retrieval.filtering import filter_indices
 
 app = FastAPI()
 
-STATE = {}
+STATE = {}  # model/index/reranker loaded once at startup, not per-request
 
 
 @app.on_event("startup")

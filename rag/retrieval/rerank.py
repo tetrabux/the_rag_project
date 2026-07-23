@@ -14,6 +14,7 @@ def load_reranker():
 
 
 def rerank(reranker, query, candidates, k):
+    # cross-encoder scores query+doc jointly, so it's slower but more precise than the bi-encoder dense pass
     pairs = [[query, chunk.text] for chunk, _ in candidates]
     scores = reranker.predict(pairs)
     chunks_only = [chunk for chunk, _ in candidates]
