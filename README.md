@@ -13,6 +13,30 @@ the reranker before/after number).
 
 ---
 
+## TL;DR — what's actually here
+
+**Retrieval (Part 1):** Markdown docs get chunked and indexed two ways — dense
+embeddings (semantic match) and BM25 (exact token match) — then combined with
+rank-based fusion (not raw-score averaging, which turned out to be unstable across
+candidate pool sizes) and optionally reranked with a cross-encoder for precision.
+Three query modes (`dense` / `hybrid` / `hybrid_rerank`) are all exposed through one
+FastAPI endpoint. The retrieval side is solid: near-perfect recall/mrr across every
+query type in the golden set.
+
+**Eval suite (Part 2):** Good retrieval doesn't guarantee a good *answer*, so this
+adds a generation step and scores it with an LLM judge on faithfulness and relevance
+— but only after calibrating that judge against hand labels (87%/80% agreement,
+consistently lenient) and measuring its own noise (±0.020) so a regression gate
+doesn't cry wolf over judge fuzziness. The gate itself blocks on any drop in
+deterministic metrics (recall/mrr) but only flags faithfulness drift once it clears
+the noise band. A separate oracle-context test tells you, per query, whether a
+failure is retrieval's fault or generation's — and the one number this whole suite
+was built to produce: the reranker measurably helps `identifier`-tag faithfulness
+(+0.067, 3.3× the noise band) and measurably hurts `multi_section` (-0.056, 2.8×) —
+a real, defensible, two-sided answer instead of an unverified "it's better" claim.
+
+---
+
 # Part 1 — Retrieval Engine
 
 ## Ablation table — dense-only vs hybrid vs hybrid+rerank
