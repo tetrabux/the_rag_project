@@ -188,7 +188,7 @@ against hand labels instead of trusting it blindly, measures the judge's own noi
 so the regression gate isn't set on a guess, and can tell you, for any failed query,
 whether retrieval or generation is at fault.
 
-## Golden set (G1)
+## Golden set
 
 `rag/eval/queries.py` holds 29 queries across 9 tags, deliberately including the
 cases that break a naive system: a semantically confusable distractor shared by 19
@@ -198,7 +198,7 @@ where 10 docs share an identical description and only one is actually correct, a
 unanswerable queries with no correct chunk at all. Dense-only baseline has real
 headroom on these (see the ablation table above), so the set earns its keep.
 
-## Generation + judge (G2, G3)
+## Generation + judge
 
 `rag/eval/generation.py` takes the top-k retrieved chunks and the query and produces
 an answer via an LLM API, instructed to admit it doesn't know rather than guess when
@@ -216,7 +216,7 @@ Both the generation and judge calls are cached, keyed on their exact inputs
 (`rag/eval/.cache/`), so re-running the eval doesn't re-bill or re-hit rate limits
 for anything already scored. Only genuinely new or previously failed calls go out.
 
-## Judge calibration: is this judge trustworthy? (G4)
+## Judge calibration: is this judge trustworthy?
 
 An unvalidated judge is just a second opinion, not ground truth. `rag/eval/calibrate.py`
 hand-labels 15 generated answers and compares against the judge's scores on the same
@@ -236,7 +236,7 @@ rather than a precise score: a judge-reported 1.0 faithfulness doesn't guarantee
 zero hallucination. This is exactly why the regression gate below is built around
 movement between runs, not fixed absolute thresholds.
 
-## Judge noise band (EV1)
+## Judge noise band
 
 Faithfulness is judged by an LLM, so re-scoring the same answer twice won't
 necessarily give the same number. `rag/eval/noise_band.py` re-judges a sample of
@@ -248,7 +248,7 @@ This number is load-bearing. It's the only thing separating a real improvement f
 the judge just being the judge again. Any regression gate set tighter than 0.020
 would trip on noise alone.
 
-## Regression gate: hard vs soft (G5)
+## Regression gate: hard vs soft
 
 `rag/eval/regression.py` freezes a baseline run (`save_baseline`) and diffs a new
 run against it, per query and per tag, not just as one aggregate:
@@ -258,7 +258,7 @@ run against it, per query and per tag, not just as one aggregate:
   noise to account for, so any drop is a real regression and blocks. It reports
   every `(query, mode, metric)` that dropped.
 - **Soft gate** (`check_soft_gate`): faithfulness is judge-scored and therefore
-  noisy, so movement is classified per tag against the 0.020 EV1 band. Improved if
+  noisy, so movement is classified per tag against the 0.020 noise band. Improved if
   the delta clears +0.020, regressed if it clears -0.020, otherwise treated as noise
   and tracked rather than blocked.
 
@@ -266,7 +266,7 @@ This is the acceptance test the spec asks for: change one thing, a prompt word, 
 the reranker toggle, rerun, and the gate tells you, beyond noise, whether it helped,
 hurt, or is indistinguishable, and on which slice.
 
-## Failure attribution: retrieval bug or generation bug? (G6)
+## Failure attribution: retrieval bug or generation bug?
 
 For any query, `run_oracle` in `rag/eval/harness.py` re-answers it using the known
 correct context directly, pulled by file rather than retrieved, instead of whatever
@@ -286,7 +286,7 @@ on its own, which is also why faithfulness alone doesn't prove correctness. A lo
 score could mean retrieval handed the model garbage, or the model hallucinated
 despite good context, and only the oracle-context test tells you which.
 
-## The reranker before/after number (EV2)
+## The reranker before/after number
 
 `rag/eval/ev2_reranker.py` compares `hybrid` (reranker off) against `hybrid_rerank`
 (reranker on) from the same run, sliced by tag, with faithfulness delta shown
@@ -323,7 +323,7 @@ solves.
 ```bash
 uv run python -m rag.eval.harness        # full eval run, writes rag/eval/results.json
 uv run python -m rag.eval.calibrate       # hand-label a fresh sample (interactive)
-uv run python -m rag.eval.noise_band      # re-measure the EV1 noise band
+uv run python -m rag.eval.noise_band      # re-measure the noise band
 uv run python -c "from rag.eval.regression import save_baseline; import json; \
   save_baseline(json.load(open('rag/eval/results.json')))"   # freeze a baseline
 uv run python -m rag.eval.regression      # gate the current results.json against baseline.json
